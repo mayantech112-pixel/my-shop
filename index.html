@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khurram Fashion</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f5f6fa;color:#222;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block}
+
+/* ================= HEADER ================= */
+header{
+  background:#0a223f;
+  color:#fff;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{height:45px;}
+header h1{color:#f5c518;font-size:22px}
+nav a{
+  margin-left:18px;
+  font-size:14px;
+  color:#fff;
+}
+nav a:hover{color:#f5c518}
+
+/* ================= HERO / HOME ================= */
+.hero{
+  position:relative;
+  height:80svh;
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:#fff;
+}
+.hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(10,34,63,0.1);
+}
+.hero-content{position:relative;z-index:2;}
+.hero h2{font-size:36px;margin-bottom:10px;}
+.hero p{margin-bottom:15px;}
+.hero a{
+  background:#f5c518;
+  color:#0a223f;
+  padding:12px 25px;
+  border-radius:30px;
+  font-weight:600;
+}
+
+/* ================= PRODUCTS ================= */
+.products{padding:40px 5%;}
+.products h2{
+  text-align:center;
+  margin-bottom:25px;
+  color:#0a223f;
+}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+.product-card{
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+.product-card img{height:200px;width:100%;object-fit:cover}
+.product-card h3{text-align:center;font-size:15px;margin:6px}
+.product-card p{text-align:center;font-size:12px;color:#666;padding:0 5px 8px}
+
+/* ================= MODAL ================= */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:9999;
+  overflow-y:auto;
+}
+.modal-box{
+  background:#fff;
+  width:95%;
+  max-width:1000px;
+  margin:30px auto;
+  border-radius:12px;
+  padding:15px;
+  display:flex;
+  gap:20px;
+}
+.close{
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:35px;
+  height:35px;
+  background:#25D366;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.modal-left{flex:1;}
+.zoom-box{
+  overflow:hidden;
+  cursor:zoom-in;
+  touch-action:none;
+}
+.zoom-box img{
+  width:100%;
+  max-height:70vh;
+  object-fit:contain;
+  transition:transform .15s ease;
+}
+.thumbs{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  overflow-x:auto;
+}
+.thumbs img{
+  width:65px;
+  height:65px;
+  border:2px solid #ccc;
+  border-radius:6px;
+  cursor:pointer;
+}
+.thumbs img.active{border-color:#25D366}
+
+.modal-right{flex:1;}
+.price{color:#ff5722;font-size:22px;font-weight:bold;margin:5px 0}
+.qty{display:flex;align-items:center;gap:10px;margin:10px 0;}
+.qty button{width:32px;height:32px;}
+
+.buy,.download{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:30px;
+  color:#fff;
+  margin-top:8px;
+  cursor:pointer;
+}
+.buy{background:#25D366;}
+.download{background:#2196f3;}
+
+/* ================= ABOUT ================= */
+.about{
+  padding:40px 5%;
+  background:#fff;
+}
+.about h2{
+  text-align:center;
+  color:#0a223f;
+  margin-bottom:15px;
+}
+.about p{
+  text-align:center;
+  max-width:700px;
+  margin:auto;
+  font-size:14px;
+}
+
+/* ================= CONTACT ================= */
+.contact{
+  padding:40px 5%;
+  background:#f9f9f9;
+  text-align:center;
+}
+.contact h2{color:#0a223f;margin-bottom:10px;}
+.contact a{
+  display:inline-block;
+  margin-top:10px;
+  background:#25D366;
+  color:#fff;
+  padding:12px 25px;
+  border-radius:30px;
+  font-weight:600;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:992px){.product-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){
+.product-grid{grid-template-columns:repeat(2,1fr);}
+.hero h2{font-size:26px;}
+.modal-box{flex-direction:column;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="logo">
+    <img src="images/logo-image.jpg">
+    <h1>Khurram Fashion</h1>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ================= HOME ================= -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h2>Luxury Fashion for Every Occasion</h2>
+    <p>Stylish & Trendy Dresses for Everyone</p>
+    <a href="#products">Explore Products</a>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="products" id="products">
+  <h2>Our Products</h2>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <h2>About Us</h2>
+  <p>
+    Khurram Fashion brings you premium ladies clothing with modern designs,
+    quality fabric and trusted customer service.
+  </p>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <h2>Contact Us</h2>
+  <p>Order directly on WhatsApp</p>
+  <a href="https://wa.me/923122240089" target="_blank">WhatsApp Us</a>
+</section>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="close" onclick="closeModal()">✕</div>
+
+    <div class="modal-left">
+      <div class="zoom-box" id="zoomBox">
+        <img id="mainImg">
+      </div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+
+    <div class="modal-right">
+      <h3 id="title"></h3>
+      <div class="price" id="price"></div>
+      <p id="desc"></p>
+
+      <div class="qty">
+        <button onclick="qty--,updateQty()">-</button>
+        <span id="qty">1</span>
+        <button onclick="qty++,updateQty()">+</button>
+      </div>
+
+      <button class="buy" onclick="buyNow()">Buy Now WhatsApp</button>
+      <button class="download" onclick="downloadImg()">Download Image</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* HERO SLIDER */
+const hero=document.querySelector(".hero");
+const heroImages=["images/logo-image1.jpg","images/logo-image2.jpg","images/logo-image3.jpg"];
+let hi=0;
+setInterval(()=>{
+  hero.style.backgroundImage=`url('${heroImages[hi]}')`;
+  hi=(hi+1)%heroImages.length;
+},4000);
+
+/* PRODUCTS DATA */
+const products=[
+{name:"2Pc Ladies Dress",price:"Rs 1,399",desc:"Comfortable trendy stitched dress.",images:["images/logo-image1.jpg","images/logo-image2.jpg","images/logo-image3.jpg"]},
+{name:"Luxury Maxi Dress",price:"Rs 2,150",desc:"Elegant party wear dress.",images:["images/logo-image4.jpg","images/logo-image5.jpg"]}
+];
+
+const grid=document.getElementById("productGrid");
+products.forEach((p,i)=>{
+grid.innerHTML+=`
+<div class="product-card" onclick="openProduct(${i})">
+<img src="${p.images[0]}">
+<h3>${p.name}</h3>
+<p>${p.desc}</p>
+</div>`;
+});
+
+let currentProduct,currentImg,qty=1;
+
+function openProduct(i){
+currentProduct=products[i];
+currentImg=currentProduct.images[0];
+modal.style.display="block";
+title.innerText=currentProduct.name;
+price.innerText=currentProduct.price;
+desc.innerText=currentProduct.desc;
+mainImg.src=currentImg;
+
+thumbs.innerHTML=currentProduct.images.map((img,idx)=>
+`<img src="${img}" class="${idx==0?'active':''}" onclick="selectImg(this,'${img}')">`
+).join("");
+
+qty=1;updateQty();
+}
+function closeModal(){modal.style.display="none"}
+function selectImg(el,img){
+currentImg=img;
+document.querySelectorAll(".thumbs img").forEach(i=>i.classList.remove("active"));
+el.classList.add("active");
+mainImg.src=img;
+}
+function updateQty(){
+if(qty<1) qty=1;
+document.getElementById("qty").innerText=qty;
+}
+function buyNow(){
+let msg=`Product: ${currentProduct.name}
+Price: ${currentProduct.price}
+Qty: ${qty}
+Image: ${currentImg}`;
+window.open("https://wa.me/923122240089?text="+encodeURIComponent(msg));
+}
+function downloadImg(){
+let a=document.createElement("a");
+a.href=currentImg;
+a.download="product.jpg";
+a.click();
+}
+
+/* DESKTOP + MOBILE ZOOM */
+const zoomBox=document.getElementById("zoomBox");
+const zoomImg=document.getElementById("mainImg");
+
+function zoomAt(x,y){
+  zoomImg.style.transformOrigin=`${x}% ${y}%`;
+  zoomImg.style.transform="scale(2.2)";
+}
+zoomBox.addEventListener("mousemove",e=>{
+  const r=zoomBox.getBoundingClientRect();
+  zoomAt(
+    ((e.clientX-r.left)/r.width)*100,
+    ((e.clientY-r.top)/r.height)*100
+  );
+});
+zoomBox.addEventListener("mouseleave",()=>zoomImg.style.transform="scale(1)");
+
+zoomBox.addEventListener("touchmove",e=>{
+  const t=e.touches[0];
+  const r=zoomBox.getBoundingClientRect();
+  zoomAt(
+    ((t.clientX-r.left)/r.width)*100,
+    ((t.clientY-r.top)/r.height)*100
+  );
+});
+zoomBox.addEventListener("touchend",()=>zoomImg.style.transform="scale(1)");
+</script>
+
+</body>
+</html>
